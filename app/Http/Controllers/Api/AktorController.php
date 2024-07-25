@@ -39,6 +39,7 @@ class AktorController extends Controller
 
         $aktor = new aktor();
         $aktor->nama_aktor = $request->nama_aktor;
+        $aktor->bio = $request->bio;
         $aktor->save();
         
         return response()->json([
@@ -83,6 +84,7 @@ class AktorController extends Controller
         $aktor = Aktor::find($id);
         if ($aktor) {
             $aktor->nama_aktor = $request->nama_aktor;
+            $aktor->bio = $request->bio;
             $aktor->save();
             return response()->json([
                 'success' => true,
@@ -97,7 +99,7 @@ class AktorController extends Controller
         }
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
         $aktor = Aktor::find($id);
         if ($aktor) {

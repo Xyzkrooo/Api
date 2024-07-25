@@ -95,7 +95,7 @@ class KategoriController extends Controller
         }
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
         $kategori = Kategori::find($id);
         if ($kategori) {

@@ -95,7 +95,7 @@ class GenreController extends Controller
         }
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
         $genre = Genre::find($id);
         if ($genre) {
