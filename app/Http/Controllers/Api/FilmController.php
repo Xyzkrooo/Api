@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-namespace App\Http\Controllers\Api;
-
 use App\Http\Controllers\Controller;
 use App\Models\Film;
 use Illuminate\Http\Request;
@@ -26,7 +24,6 @@ class FilmController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'judul' => 'required|unique:films|max:255',
-            'slug' => 'required|max:255',
             'poto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'deskripsi' => 'required',
             'url_vidio' => 'required|max:255',
@@ -46,7 +43,7 @@ class FilmController extends Controller
         }
 
         // Handle file upload
-        $potoPath = $request->file('poto')->store('images', 'public');
+        $potoPath = $request->file('poto')->store('public/image');
 
         // Create film
         $film = new Film();
@@ -89,7 +86,6 @@ class FilmController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'judul' => 'required|max:255|unique:films,judul,' . $id,
-            'slug' => 'required|max:255',
             'poto' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'deskripsi' => 'required',
             'url_vidio' => 'required|max:255',
@@ -117,7 +113,7 @@ class FilmController extends Controller
             $film->id_kategori = $request->id_kategori;
 
             if ($request->hasFile('poto')) {
-                $potoPath = $request->file('poto')->store('images', 'public');
+                $potoPath = $request->file('poto')->store('public/image');
                 $film->poto = $potoPath;
             }
 
@@ -143,6 +139,8 @@ class FilmController extends Controller
         $film = Film::find($id);
         if ($film) {
             $film->delete();
+            $film->genres()->detach();
+            $film->aktors()->detach();
             return response()->json([
                 'success' => true,
                 'message' => 'Film Berhasil Dihapus',
