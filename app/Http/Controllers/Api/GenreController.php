@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Genre;
+use App\Models\genre;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -11,7 +11,7 @@ class GenreController extends Controller
 {
     public function index()
     {
-        $genre = Genre::latest()->get();
+        $genre = genre::latest()->get();
         $response = [
             'success' => true,
             'message' => 'Daftar Genre',
@@ -36,7 +36,7 @@ class GenreController extends Controller
             ], 400);
         }
 
-        $genre = new Genre();
+        $genre = new genre();
         $genre->nama_Genre = $request->nama_Genre;
         $genre->save();
         
@@ -49,7 +49,7 @@ class GenreController extends Controller
 
     public function show($id)
     {
-        $genre = Genre::find($id);
+        $genre = genre::find($id);
         if ($genre) {
             return response()->json([
                 'success' => true,
@@ -78,7 +78,7 @@ class GenreController extends Controller
             ], 400);
         }
 
-        $genre = Genre::find($id);
+        $genre = genre::find($id);
         if ($genre) {
             $genre->nama_Genre = $request->nama_Genre;
             $genre->save();
@@ -97,7 +97,7 @@ class GenreController extends Controller
 
     public function destroy($id)
     {
-        $genre = Genre::find($id);
+        $genre = genre::find($id);
         if ($genre) {
             $genre->delete();
             return response()->json([

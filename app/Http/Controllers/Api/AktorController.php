@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Aktor;
+use App\Models\aktor;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -11,7 +11,7 @@ class AktorController extends Controller
 {
     public function index()
     {
-        $aktor = Aktor::latest()->get();
+        $aktor = aktor::latest()->get();
         $response = [
             'success' => true,
             'message' => 'Daftar aktor',
@@ -51,7 +51,7 @@ class AktorController extends Controller
 
     public function show($id)
     {
-        $aktor = Aktor::find($id);
+        $aktor = aktor::find($id);
         if ($aktor) {
             return response()->json([
                 'success' => true,
@@ -81,7 +81,7 @@ class AktorController extends Controller
             ], 400);
         }
 
-        $aktor = Aktor::find($id);
+        $aktor = aktor::find($id);
         if ($aktor) {
             $aktor->nama_aktor = $request->nama_aktor;
             $aktor->bio = $request->bio;
@@ -101,7 +101,7 @@ class AktorController extends Controller
 
     public function destroy($id)
     {
-        $aktor = Aktor::find($id);
+        $aktor = aktor::find($id);
         if ($aktor) {
             $aktor->delete();
             return response()->json([
